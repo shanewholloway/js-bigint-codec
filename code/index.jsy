@@ -1,0 +1,11 @@
+import encodeBigInt from './bigint_encode.jsy'
+import decodeBigInt from './bigint_decode.jsy'
+
+export * from './bigint_encode.jsy'
+export * from './bigint_decode.jsy'
+
+export default BigIntCodec
+export const BigIntCodec = @{}
+  encode: encodeBigInt
+  decode: decodeBigInt
+

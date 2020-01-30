@@ -1,47 +1,31 @@
 export * from './bigint_encode_into.jsy'
 
-import {encodeIntoBigIntBE, encodeIntoBigUintBE} from './bigint_encode_be.jsy'
-import {encodeIntoBigIntLE, encodeIntoBigUintLE} from './bigint_encode_le.jsy'
+import @{} encodeIntoBigIntBE, encodeIntoBigUintBE
+from './bigint_encode_be.jsy'
+
+import @{} encodeIntoBigIntLE, encodeIntoBigUintLE
+from './bigint_encode_le.jsy'
 
 export default encodeBigInt
 export function encodeBigInt(value, littleEndian) ::
-  const u8buf = _u8buf_for_bigint(value)
   return littleEndian
-    ? encodeIntoBigIntLE(value, u8buf)
-    : encodeIntoBigIntBE(value, u8buf)
+    ? encodeIntoBigIntLE(value)
+    : encodeIntoBigIntBE(value)
 
 export function encodeBigUint(value, littleEndian) ::
-  const u8buf = _u8buf_for_bigint(value)
   return littleEndian
-    ? encodeIntoBigUintLE(value, u8buf)
-    : encodeIntoBigUintBE(value, u8buf)
+    ? encodeIntoBigUintLE(value)
+    : encodeIntoBigUintBE(value)
 
 export function encodeBigIntLE(value) ::
-  const u8buf = _u8buf_for_bigint(value)
-  return encodeIntoBigIntLE(value, u8buf)
+  return encodeIntoBigIntLE(value)
 
 export function encodeBigIntBE(value) ::
-  const u8buf = _u8buf_for_bigint(value)
-  return encodeIntoBigIntBE(value, u8buf)
+  return encodeIntoBigIntBE(value)
 
 export function encodeBigUintLE(value) ::
-  const u8buf = _u8buf_for_bigint(value)
-  return encodeIntoBigUintLE(value, u8buf)
+  return encodeIntoBigUintLE(value)
 
 export function encodeBigUintBE(value) ::
-  const u8buf = _u8buf_for_bigint(value)
-  return encodeIntoBigUintBE(value, u8buf)
+  return encodeIntoBigUintBE(value)
 
-
-function _u8buf_for_bigint(v) ::
-  if 0n > v ::
-    v = -v
-
-  // rough size estimate
-  let size = 32
-  let alloc = 2n ** BigInt(size)
-  while alloc <= v ::
-    alloc <<= 256n
-    size += 32
-
-  return new Uint8Array(size)

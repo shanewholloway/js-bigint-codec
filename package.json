@@ -12,8 +12,13 @@
     "type": "git",
     "url": "git+ssh://git@github.com/shanewholloway/js-bigint-codec.git"
   },
-  "main": "./cjs/bigint_codec.js",
-  "module": "./esm/bigint_codec.mjs",
+  "type": "module",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.mjs",
+  "exports": {
+    "import": "./esm/index.mjs",
+    "require": "./cjs/index.cjs"
+  },
   "files": [
     "cjs/",
     "esm/",
@@ -22,13 +27,16 @@
   "dependencies": {},
   "devDependencies": {
     "rollup": "^1.30.1",
-    "rollup-plugin-jsy-lite": "^1.5.1"
+    "rollup-plugin-jsy-lite": "^1.5.1",
+    "rollup-plugin-terser": "^5.2.0"
   },
   "scripts": {
     "clean": "rm -rf ./cjs/* ./esm/* ./umd/*",
     "build": "rollup --config",
     "watch": "npm -s run build -- --watch",
     "pretest": "npm -s run build",
-    "test": "true"
+    "test": "cd test && npm -s run test",
+    "test:one": "cd test; npm -s run test:one",
+    "test:watch": "cd test; npm -s run test:watch"
   }
 }

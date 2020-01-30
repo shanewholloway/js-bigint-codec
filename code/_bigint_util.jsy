@@ -1,0 +1,17 @@
+export function _as_u8_data(u8buf) ::
+  return u8buf instanceof Uint8Array ? u8buf
+    : new Uint8Array @ new ArrayBuffer @ u8buf
+
+export function _u8buf_for_bigint(v) ::
+  if 0n > v ::
+    v = -v
+
+  // rough size estimate
+  let size = 32
+  let alloc = 2n ** BigInt(size)
+  while alloc <= v ::
+    alloc <<= 256n
+    size += 32
+
+  return new Uint8Array(size)
+

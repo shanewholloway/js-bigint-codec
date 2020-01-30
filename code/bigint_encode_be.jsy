@@ -1,3 +1,4 @@
+import {_u8buf_for_bigint} from './_bigint_util.jsy'
 
 export default encodeIntoBigIntBE
 export const encodeIntoBigIntBE = _encodeIntoBigIntBE.bind @ null, true
@@ -8,7 +9,7 @@ export function _encodeIntoBigIntBE(as_signed, value, u8buf) ::
     throw new Error @ 'Unable to encode a negative BigInt in unsigned format'
 
   if undefined === u8buf ::
-    u8buf = new Uint8Array(128)
+    u8buf = _u8buf_for_bigint(value)
 
   const len = u8buf.length
   let i=len, v_next=value, v_tip

@@ -1,34 +1,31 @@
+import {_as_u8_data} from './_bigint_util.jsy'
+
 export default decodeBigInt
 
-export function decodeBigInt(buffer, littleEndian) ::
+export function decodeBigInt(u8buf, littleEndian) ::
   return littleEndian
-    ? decodeBigIntLE(buffer)
-    : decodeBigIntBE(buffer)
+    ? decodeBigIntLE(u8buf)
+    : decodeBigIntBE(u8buf)
 
-export function decodeBigUint(buffer, littleEndian) ::
+export function decodeBigUint(u8buf, littleEndian) ::
   return littleEndian
-    ? decodeBigUintLE(buffer)
-    : decodeBigUintBE(buffer)
+    ? decodeBigUintLE(u8buf)
+    : decodeBigUintBE(u8buf)
 
 export const decodeBigIntLE = _decodeBigIntLE.bind(null, true)
 export const decodeBigIntBE = _decodeBigIntBE.bind(null, true)
 export const decodeBigUintLE = _decodeBigIntLE.bind(null, false)
 export const decodeBigUintBE = _decodeBigIntBE.bind(null, false)
 
-function _as_u8(buffer) ::
-  return buffer instanceof Uint8Array ? buffer
-    : new Uint8Array @ new ArrayBuffer @ buffer
-
-
-function _decodeBigIntLE(as_signed, buffer) ::
-  const u8 = _as_u8(buffer), len=u8.length
+function _decodeBigIntLE(as_signed, u8buf) ::
+  const u8 = _as_u8_data(u8buf), len=u8.length
   let v = as_signed && (0x80 & u8[len - 1]) ? -1n : 0n
   for let i=len-1; i>=0; i-- ::
     v = (v << 8n) | BigInt(u8[i])
   return v
 
-function _decodeBigIntBE(as_signed, buffer) ::
-  const u8 = _as_u8(buffer), len=u8.length
+function _decodeBigIntBE(as_signed, u8buf) ::
+  const u8 = _as_u8_data(u8buf), len=u8.length
   let v = as_signed && (0x80 & u8[0]) ? -1n : 0n
   for let i=0; i<len; i++ ::
     v = (v << 8n) | BigInt(u8[i])
