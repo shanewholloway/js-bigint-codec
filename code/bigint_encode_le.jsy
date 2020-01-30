@@ -3,6 +3,9 @@ export const encodeIntoBigIntLE = _encodeIntoBigIntLE.bind(null, true)
 export const encodeIntoBigUintLE = _encodeIntoBigIntLE.bind(null, false)
 
 export function _encodeIntoBigIntLE(as_signed, value, u8buf) ::
+  if ! as_signed && value < 0n ::
+    throw new Error @ 'Unable to encode a negative BigInt in unsigned format'
+
   if undefined === u8buf ::
     u8buf = new Uint8Array(128)
 

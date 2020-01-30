@@ -1,7 +1,64 @@
 const { assert } = require('chai')
-import bigint_decode from 'bigint-codec/esm/bigint_decode.mjs'
+
+import @{}
+  encodeBigIntLE, encodeBigIntBE
+  encodeBigUintLE, encodeBigUintBE
+from 'bigint-codec/esm/bigint_encode.mjs'
+
+import @{}
+  decodeBigIntLE, decodeBigIntBE
+  decodeBigUintLE, decodeBigUintBE
+from 'bigint-codec/esm/bigint_decode.mjs'
+
+
 
 describe @ 'decode', @=> ::
   it @ 'importable', @=> ::
-    assert.equal @ typeof bigint_decode, 'function'
+    assert.equal @ typeof decodeBigIntLE, 'function'
+    assert.equal @ typeof decodeBigIntBE, 'function'
+    assert.equal @ typeof decodeBigUintLE, 'function'
+    assert.equal @ typeof decodeBigUintBE, 'function'
+
+  describe @ 'decode Int', @=> ::
+    _roundTripSuite @ '0n', 0n
+    _roundTripSuite @ '1n', 1n
+    _roundTripSuite @ '-1n', 1n
+    _roundTripSuite @ '127n', 127n
+    _roundTripSuite @ '-127n', -127n
+    _roundTripSuite @ '128n', 128n
+    _roundTripSuite @ '-128n', -128n
+    _roundTripSuite @ '0xdeadbeef', 0xdeadbeefn
+    _roundTripSuite @ '-0xdeadbeef', -0xdeadbeefn
+
+  describe @ 'decode big numbers from crypto land', @=> ::
+    _roundTripSuite @ 'P-256', 0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551n
+    _roundTripSuite @ 'P-384', 0xffffffffffffffffffffffffffffffffffffffffffffffffc7634d81f4372ddf581a0db248b0a77aecec196accc52973n
+    _roundTripSuite @ 'P-521', 0x000001fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffa51868783bf2f966b7fcc0148f709a5d03bb5c9b8899c47aebb6fb71e91386409n
+    _roundTripSuite @ 'curve25519', 0x1000000000000000000000000000000014def9dea2f79cd65812631a5cf5d3edn
+    _roundTripSuite @ 'secp256k1', 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141n
+
+function _roundTripSuite(title, n0) ::
+  return describe @ title, @=> ::
+
+    if n0 >= 0n ::
+      it @ `Decode Uint LE`, @=> ::
+        const res = encodeBigUintLE(n0)
+        const n1 = decodeBigUintLE(res)
+        assert.equal @ n1, n0
+
+      it @ `Decode Uint BE`, @=> ::
+        const res = encodeBigUintBE(n0)
+        const n1 = decodeBigUintBE(res)
+        assert.equal @ n1, n0
+
+
+    it @ `Decode Int LE`, @=> ::
+      const res = encodeBigIntLE(n0)
+      const n1 = decodeBigIntLE(res)
+      assert.equal @ n1, n0
+
+    it @ `Decode Int BE`, @=> ::
+      const res = encodeBigIntBE(n0)
+      const n1 = decodeBigIntBE(res)
+      assert.equal @ n1, n0
 
