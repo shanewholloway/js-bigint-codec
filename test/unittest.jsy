@@ -1,0 +1,6 @@
+#IF PLAT_NODEJS
+ require('source-map-support').install()
+import './unit/smoke.jsy'
+import './unit/encode.jsy'
+import './unit/encode_rope.jsy'
+import './unit/decode.jsy'

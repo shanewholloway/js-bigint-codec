@@ -1,0 +1,75 @@
+import {encodeIntoBigIntBE, encodeIntoBigUintBE} from './bigint_encode_be.jsy'
+import {encodeIntoBigIntLE, encodeIntoBigUintLE} from './bigint_encode_le.jsy'
+
+export * from './bigint_encode_be.jsy'
+export * from './bigint_encode_le.jsy'
+
+
+export function encodeIntoBigInt(value, littleEndian, u8buf) ::
+  return littleEndian
+    ? encodeIntoBigIntLE(value, u8buf)
+    : encodeIntoBigIntBE(value, u8buf)
+
+export function encodeIntoBigUint(value, littleEndian, u8buf) ::
+  return littleEndian
+    ? encodeIntoBigUintLE(value, u8buf)
+    : encodeIntoBigUintBE(value, u8buf)
+
+
+export default encodeBigInt
+export function encodeBigInt(value, littleEndian) ::
+  return littleEndian
+    ? encodeBigIntLE(value)
+    : encodeBigIntBE(value)
+
+export function encodeBigUint(value, littleEndian) ::
+  return littleEndian
+    ? encodeBigUintLE(value)
+    : encodeBigUintBE(value)
+
+
+
+
+export function encodeBigIntBE(value) ::
+  const rope=[], u8_1k = new Uint8Array(1024)
+
+  let done, u8_part, v_tip=value
+  while ! done ::
+    [done, v_tip, u8_part] =
+      encodeIntoBigIntBE @
+        v_tip, u8_1k, true
+
+    rope.push @ u8_part
+
+  return 1 === rope.length ? rope.pop()
+    : _join_1k_rope @ rope, u8_part
+
+
+export function encodeBigIntLE(value) ::
+  const rope=[], u8_1k = new Uint8Array(1024)
+
+  let done, u8_part, v_tip=value
+  while ! done ::
+    [done, v_tip, u8_part] =
+      encodeIntoBigIntLE @
+        v_tip, u8_1k, true
+
+    rope.unshift @ u8_part
+
+  return 1 === rope.length ? rope.pop()
+    : _join_1k_rope @ rope, u8_part
+
+
+function _join_1k_rope(rope, partial) ::
+  return;
+  const u8buf = new Uint8Array @
+    // 1024*(n-1) + partial
+    ((rope.length-1) << 10) 
+      + partial.byteLength
+
+  let offset=0
+  for const each of rope ::
+    u8buf.set @ each, offset
+    offset += each.byteLength
+  return u8buf.buffer
+

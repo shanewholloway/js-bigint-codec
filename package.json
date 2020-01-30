@@ -1,0 +1,34 @@
+{
+  "name": "bigint-codec",
+  "version": "0.0.0",
+  "description": "BigInt codec for NodeJS and the Web",
+  "license": "BSD-2-Clause",
+  "author": "Shane Holloway <shane.holloway@ieee.org>",
+  "homepage": "https://github.com/shanewholloway/js-bigint-codec#readme",
+  "bugs": {
+    "url": "https://github.com/shanewholloway/js-bigint-codec/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/shanewholloway/js-bigint-codec.git"
+  },
+  "main": "./cjs/bigint_codec.js",
+  "module": "./esm/bigint_codec.mjs",
+  "files": [
+    "cjs/",
+    "esm/",
+    "umd/"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "rollup": "^1.30.1",
+    "rollup-plugin-jsy-lite": "^1.5.1"
+  },
+  "scripts": {
+    "clean": "rm -rf ./cjs/* ./esm/* ./umd/*",
+    "build": "rollup --config",
+    "watch": "npm -s run build -- --watch",
+    "pretest": "npm -s run build",
+    "test": "true"
+  }
+}

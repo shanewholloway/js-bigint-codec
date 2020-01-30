@@ -1,0 +1,12 @@
+import encode_bigint from './bigint_encode.jsy'
+import decode_bigint from './bigint_decode.jsy'
+
+const bigint_codec = @{}
+  encode: encode_bigint
+  decode: decode_bigint
+
+export @{}
+  bigint_codec as default,
+  bigint_codec,
+  encode_bigint,
+  decode_bigint,

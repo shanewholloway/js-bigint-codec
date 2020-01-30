@@ -1,0 +1,10 @@
+export default decodeBigInt
+export function decodeBigInt(buffer, littleEndian) ::
+  return littleEndian
+    ? decodeBigIntLE(buffer)
+    : decodeBigIntBE(buffer)
+
+export function decodeBigIntLE(buffer) ::
+
+export function decodeBigIntBE(buffer) ::
+

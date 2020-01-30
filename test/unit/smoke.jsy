@@ -1,0 +1,10 @@
+const { assert } = require('chai')
+import bigint_codec from 'bigint-codec'
+
+describe @ 'smoke', @=> ::
+  it @ 'basics', @=> ::
+    assert @ 'works'
+
+  it @ 'importable', @=> ::
+    assert.equal @ typeof bigint_codec, 'object'
+

@@ -1,0 +1,7 @@
+const { assert } = require('chai')
+import bigint_decode from 'bigint-codec/esm/bigint_decode.mjs'
+
+describe @ 'decode', @=> ::
+  it @ 'importable', @=> ::
+    assert.equal @ typeof bigint_decode, 'function'
+
