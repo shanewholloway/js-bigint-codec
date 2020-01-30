@@ -48,31 +48,47 @@ console.log(n_rt_LE === n_curve25519)
 
 ###### Encode Signed BigInt
 
-- `encodeBigInt(value : BigInt, littleEndian: Boolean)`
-- `encodeBigIntLE(value : BigInt)`
-- `encodeBigIntBE(value : BigInt)`
-- `encodeIntoBigIntLE(value : BigInt, u8buf? : Uint8Array)`
-- `encodeIntoBigIntBE(value : BigInt, u8buf? : Uint8Array)`
+```flow
+{
+  encodeBigInt(value : BigInt, littleEndian: Boolean) : Uint8Array {},`
+  encodeBigIntLE(value : BigInt) : Uint8Array {},`
+  encodeBigIntBE(value : BigInt) : Uint8Array {},`
+  encodeIntoBigIntLE(value : BigInt, u8buf? : Uint8Array) : Uint8Array {},`
+  encodeIntoBigIntBE(value : BigInt, u8buf? : Uint8Array) : Uint8Array {},`
+}
+```
 
 ###### Encode Unsigned BigInt
 
-- `encodeBigUint(value : BigInt, littleEndian: Boolean)`
-- `encodeBigUintBE(value : BigInt)`
-- `encodeBigUintLE(value : BigInt)`
-- `encodeIntoBigUintLE(value : BigInt, u8buf? : Uint8Array)`
-- `encodeIntoBigUintBE(value : BigInt, u8buf? : Uint8Array)`
+```flow
+{
+  encodeBigUint(value : BigInt, littleEndian: Boolean) : Uint8Array {},
+  encodeBigUintBE(value : BigInt) : Uint8Array {},
+  encodeBigUintLE(value : BigInt) : Uint8Array {},
+  encodeIntoBigUintLE(value : BigInt, u8buf? : Uint8Array) : Uint8Array {},
+  encodeIntoBigUintBE(value : BigInt, u8buf? : Uint8Array) : Uint8Array {},
+}
+```
 
 ###### Decode Signed BigInt
 
-- `decodeBigInt(u8buf: ArrayBuffer | Uint8Array, littleEndian: Boolean)`
-- `decodeBigIntLE(u8buf: ArrayBuffer | Uint8Array)`
-- `decodeBigIntBE(u8buf: ArrayBuffer | Uint8Array)`
+```flow
+{
+  decodeBigInt(u8buf: ArrayBuffer | Uint8Array, littleEndian: Boolean) : BigInt {},
+  decodeBigIntLE(u8buf: ArrayBuffer | Uint8Array) : BigInt {},
+  decodeBigIntBE(u8buf: ArrayBuffer | Uint8Array) : BigInt {},
+}
+```
 
 ###### Decode Unsigned BigInt
 
-- `decodeBigUint(u8buf: ArrayBuffer | Uint8Array, littleEndian: Boolean)`
-- `decodeBigUintBE(u8buf: ArrayBuffer | Uint8Array)`
-- `decodeBigUintLE(u8buf: ArrayBuffer | Uint8Array)`
+```flow
+{
+  decodeBigUint(u8buf: ArrayBuffer | Uint8Array, littleEndian: Boolean) : BigInt {},
+  decodeBigUintBE(u8buf: ArrayBuffer | Uint8Array) : BigInt {},
+  decodeBigUintLE(u8buf: ArrayBuffer | Uint8Array) : BigInt {},
+}
+```
 
 
 ## License
