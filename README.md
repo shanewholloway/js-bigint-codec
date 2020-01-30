@@ -48,19 +48,19 @@ console.log(n_rt_LE === n_curve25519)
 
 ###### Encode Signed BigInt
 
-```flow
+```javascript
 {
-  encodeBigInt(value : BigInt, littleEndian: Boolean) : Uint8Array {},`
-  encodeBigIntLE(value : BigInt) : Uint8Array {},`
-  encodeBigIntBE(value : BigInt) : Uint8Array {},`
-  encodeIntoBigIntLE(value : BigInt, u8buf? : Uint8Array) : Uint8Array {},`
-  encodeIntoBigIntBE(value : BigInt, u8buf? : Uint8Array) : Uint8Array {},`
+  encodeBigInt(value : BigInt, littleEndian: Boolean) : Uint8Array {},
+  encodeBigIntLE(value : BigInt) : Uint8Array {},
+  encodeBigIntBE(value : BigInt) : Uint8Array {},
+  encodeIntoBigIntLE(value : BigInt, u8buf? : Uint8Array) : Uint8Array {},
+  encodeIntoBigIntBE(value : BigInt, u8buf? : Uint8Array) : Uint8Array {},
 }
 ```
 
 ###### Encode Unsigned BigInt
 
-```flow
+```javascript
 {
   encodeBigUint(value : BigInt, littleEndian: Boolean) : Uint8Array {},
   encodeBigUintBE(value : BigInt) : Uint8Array {},
@@ -72,7 +72,7 @@ console.log(n_rt_LE === n_curve25519)
 
 ###### Decode Signed BigInt
 
-```flow
+```javascript
 {
   decodeBigInt(u8buf: ArrayBuffer | Uint8Array, littleEndian: Boolean) : BigInt {},
   decodeBigIntLE(u8buf: ArrayBuffer | Uint8Array) : BigInt {},
@@ -82,7 +82,7 @@ console.log(n_rt_LE === n_curve25519)
 
 ###### Decode Unsigned BigInt
 
-```flow
+```javascript
 {
   decodeBigUint(u8buf: ArrayBuffer | Uint8Array, littleEndian: Boolean) : BigInt {},
   decodeBigUintBE(u8buf: ArrayBuffer | Uint8Array) : BigInt {},
