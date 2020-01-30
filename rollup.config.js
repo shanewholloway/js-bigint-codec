@@ -9,6 +9,7 @@ const plugins = [rpi_jsy()]
 
 
 add_jsy('bigint_codec')
+add_jsy('bigint_encode_into')
 add_jsy('bigint_encode')
 add_jsy('bigint_decode')
 

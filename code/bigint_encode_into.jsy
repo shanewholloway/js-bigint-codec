@@ -1,0 +1,18 @@
+import {encodeIntoBigIntBE, encodeIntoBigUintBE} from './bigint_encode_be.jsy'
+import {encodeIntoBigIntLE, encodeIntoBigUintLE} from './bigint_encode_le.jsy'
+
+export @{}
+  encodeIntoBigIntBE, encodeIntoBigUintBE,
+  encodeIntoBigIntLE, encodeIntoBigUintLE,
+
+export default encodeIntoBigInt
+export function encodeIntoBigInt(value, littleEndian, u8buf) ::
+  return littleEndian
+    ? encodeIntoBigIntLE(value, u8buf)
+    : encodeIntoBigIntBE(value, u8buf)
+
+export function encodeIntoBigUint(value, littleEndian, u8buf) ::
+  return littleEndian
+    ? encodeIntoBigUintLE(value, u8buf)
+    : encodeIntoBigUintBE(value, u8buf)
+

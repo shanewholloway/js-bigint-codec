@@ -1,63 +1,62 @@
-import @{}
-  encodeIntoBigInt
-  encodeIntoBigUint
+import @{} encodeBigInt, encodeBigUint
 from 'bigint-codec/esm/bigint_encode.mjs'
 
 const { assert } = require('chai')
 
-describe @ 'encode', @=> ::
+describe @ 'encode rope', @=> ::
   it @ 'importable', @=> ::
-    assert.equal @ typeof encodeIntoBigInt, 'function'
+    assert.equal @ typeof encodeBigInt, 'function'
+    assert.equal @ typeof encodeBigUint, 'function'
 
-  describe @ 'encode into Int', @=> ::
+  describe @ 'encode Int', @=> ::
     it @ '0', @=> ::
-      _testIntoInt_BE_LE @ 0n, 0
+      _testInt_BE_LE @ 0n, 0
 
     it @ '1', @=> ::
-      _testIntoInt_BE_LE @ 1n, 1
+      _testInt_BE_LE @ 1n, 1
 
     it @ '-1', @=> ::
-      _testIntoInt_BE_LE @ -1n, 0xff
+      _testInt_BE_LE @ -1n, 0xff
 
     it @ '128', @=> ::
-      _testIntoInt_BE_LE @ 128n, 0x00, 0x80
+      _testInt_BE_LE @ 128n, 0x00, 0x80
 
     it @ '-128', @=> ::
-      _testIntoInt_BE_LE @ -128n, 0x80
+      _testInt_BE_LE @ -128n, 0x80
 
     it @ '-127', @=> ::
-      _testIntoInt_BE_LE @ -127n, 0x81
+      _testInt_BE_LE @ -127n, 0x81
 
     it @ '0xdeadbeef', @=> ::
-      _testIntoInt_BE_LE @ 0xdeadbeefn, 0x00, 0xde, 0xad, 0xbe, 0xef
+      _testInt_BE_LE @ 0xdeadbeefn, 0x00, 0xde, 0xad, 0xbe, 0xef
 
     it @ '-0xdeadbeef', @=> ::
-      _testIntoInt_BE_LE @ -0xdeadbeefn, 0xff, 0x21, 0x52, 0x41, 0x11
+      _testInt_BE_LE @ -0xdeadbeefn, 0xff, 0x21, 0x52, 0x41, 0x11
 
 
-  describe @ 'encode into Uint', @=> ::
+  describe @ 'encode Uint', @=> ::
     it @ '0', @=> ::
-      _testIntoUint_BE_LE @ 0n, 0
+      _testUint_BE_LE @ 0n, 0
 
     it @ '1', @=> ::
-      _testIntoUint_BE_LE @ 1n, 1
+      _testUint_BE_LE @ 1n, 1
 
     it @ '128', @=> ::
-      _testIntoUint_BE_LE @ 128n, 0x80
+      _testUint_BE_LE @ 128n, 0x80
 
     it @ '0xdeadbeef', @=> ::
-      _testIntoUint_BE_LE @ 0xdeadbeefn, 0xde, 0xad, 0xbe, 0xef
+      _testUint_BE_LE @ 0xdeadbeefn, 0xde, 0xad, 0xbe, 0xef
 
   describe @ 'encode big numbers from crypto land', @=> ::
     it @ 'P-256', @=> ::
       const n = 0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551n
-      _testIntoUint_BE_LE @ n,
+      _testUint_BE_LE @ n,
         0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
         0xbc, 0xe6, 0xfa, 0xad, 0xa7, 0x17, 0x9e, 0x84
         0xf3, 0xb9, 0xca, 0xc2, 0xfc, 0x63, 0x25, 0x51
 
-      _testIntoInt_BE_LE @ n, 0x00,
+      _testInt_BE_LE @ n, 0x00,
         0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
         0xbc, 0xe6, 0xfa, 0xad, 0xa7, 0x17, 0x9e, 0x84
@@ -65,7 +64,7 @@ describe @ 'encode', @=> ::
 
     it @ 'P-384', @=> ::
       const n = 0xffffffffffffffffffffffffffffffffffffffffffffffffc7634d81f4372ddf581a0db248b0a77aecec196accc52973n
-      _testIntoUint_BE_LE @ n,
+      _testUint_BE_LE @ n,
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
@@ -73,7 +72,7 @@ describe @ 'encode', @=> ::
         0x58, 0x1a, 0x0d, 0xb2, 0x48, 0xb0, 0xa7, 0x7a
         0xec, 0xec, 0x19, 0x6a, 0xcc, 0xc5, 0x29, 0x73
 
-      _testIntoInt_BE_LE @ n, 0x00,
+      _testInt_BE_LE @ n, 0x00,
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
@@ -83,7 +82,7 @@ describe @ 'encode', @=> ::
 
     it @ 'P-521', @=> ::
       const n = 0x000001fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffa51868783bf2f966b7fcc0148f709a5d03bb5c9b8899c47aebb6fb71e91386409n
-      _testIntoUint_BE_LE @ n,
+      _testUint_BE_LE @ n,
                     0x01, 0xff, 0xff, 0xff, 0xff, 0xff
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
@@ -94,7 +93,7 @@ describe @ 'encode', @=> ::
         0x89, 0x9c, 0x47, 0xae, 0xbb, 0x6f, 0xb7, 0x1e
         0x91, 0x38, 0x64, 0x09
 
-      _testIntoInt_BE_LE @ n,
+      _testInt_BE_LE @ n,
                     0x01, 0xff, 0xff, 0xff, 0xff, 0xff
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
@@ -107,13 +106,13 @@ describe @ 'encode', @=> ::
 
     it @ 'curve25519', @=> ::
       const n = 0x1000000000000000000000000000000014def9dea2f79cd65812631a5cf5d3edn
-      _testIntoUint_BE_LE @ n,
+      _testUint_BE_LE @ n,
         0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
         0x14, 0xde, 0xf9, 0xde, 0xa2, 0xf7, 0x9c, 0xd6
         0x58, 0x12, 0x63, 0x1a, 0x5c, 0xf5, 0xd3, 0xed
 
-      _testIntoInt_BE_LE @ n,
+      _testInt_BE_LE @ n,
         0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
         0x14, 0xde, 0xf9, 0xde, 0xa2, 0xf7, 0x9c, 0xd6
@@ -121,13 +120,13 @@ describe @ 'encode', @=> ::
 
     it @ 'secp256k1', @=> ::
       const n = 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141n
-      _testIntoUint_BE_LE @ n,
+      _testUint_BE_LE @ n,
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe
         0xba, 0xae, 0xdc, 0xe6, 0xaf, 0x48, 0xa0, 0x3b
         0xbf, 0xd2, 0x5e, 0x8c, 0xd0, 0x36, 0x41, 0x41
 
-      _testIntoInt_BE_LE @ n, 0x00,
+      _testInt_BE_LE @ n, 0x00,
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe
         0xba, 0xae, 0xdc, 0xe6, 0xaf, 0x48, 0xa0, 0x3b
@@ -135,26 +134,25 @@ describe @ 'encode', @=> ::
 
 
 
-function _testIntoInt_BE_LE(value, ...answer_be) ::
+function _testInt_BE_LE(value, ...answer_be) ::
   answer_be = Uint8Array.from @ answer_be
   const answer_le = answer_be.slice().reverse()
 
-  const v_be_imp = encodeIntoBigInt(value)
-  const v_be = encodeIntoBigInt(value, false)
-  const v_le = encodeIntoBigInt(value, true)
+  const v_be_imp = encodeBigInt(value)
+  const v_be = encodeBigInt(value, false)
+  const v_le = encodeBigInt(value, true)
 
   assert.deepEqual @ v_be, v_be_imp, "Big endian mismatch explicit to implicit"
   assert.deepEqual @ v_be, answer_be, "Big-endian encoding does not match expected answer"
   assert.deepEqual @ v_le, answer_le, "Little-endian encoding does not match expected answer"
 
-
-function _testIntoUint_BE_LE(value, ...answer_be) ::
+function _testUint_BE_LE(value, ...answer_be) ::
   answer_be = Uint8Array.from @ answer_be
   const answer_le = answer_be.slice().reverse()
 
-  const v_be_imp = encodeIntoBigUint(value)
-  const v_be = encodeIntoBigUint(value, false)
-  const v_le = encodeIntoBigUint(value, true)
+  const v_be_imp = encodeBigUint(value)
+  const v_be = encodeBigUint(value, false)
+  const v_le = encodeBigUint(value, true)
 
   assert.deepEqual @ v_be, v_be_imp, "Big endian mismatch explicit to implicit"
   assert.deepEqual @ v_be, answer_be, "Big-endian encoding does not match expected answer"
