@@ -1,0 +1,51 @@
+import @{} decodeBigInt, decodeBigUint
+from 'bigint-codec/esm/index.mjs'
+
+const { assert } = require('chai')
+
+describe @ 'compat 16 bits', @=> ::
+  const new_dataview = ()=>
+    new DataView @ new ArrayBuffer(2)
+
+  describe @ 'u16', @=> ::
+    const samples = @[]
+      0, 1, 2, 127, 128, 254, 255
+      256, 257, 32767, 32768, 65534, 65535
+
+    for const v of samples ::
+      it @ `(BE) v : u16 = ${v}`, @=> ::
+        const dv = new_dataview()
+        dv.setUint16(0, v, false)
+
+        const v_big = decodeBigUint(dv, false)
+        assert.equal @ v, Number(v_big)
+
+      it @ `(LE) v : u16 = ${v}`, @=> ::
+        const dv = new_dataview()
+        dv.setUint16(0, v, true)
+
+        const v_big = decodeBigUint(dv, true)
+        assert.equal @ v, Number(v_big)
+
+
+  describe @ 'i16', @=> ::
+    const samples = @[]
+      -128, -127, -2, -1, 0, 1, 2, 127
+      -257, -256, -255, 128, 255, 256, 257,
+      -32768, -32767, 32767
+
+    for const v of samples ::
+      it @ `(BE) v : i16 = ${v}`, @=> ::
+        const dv = new_dataview()
+        dv.setInt16(0, v, false)
+
+        const v_big = decodeBigInt(dv, false)
+        assert.equal @ v, Number(v_big)
+
+      it @ `(LE) v : i16 = ${v}`, @=> ::
+        const dv = new_dataview()
+        dv.setInt16(0, v, true)
+
+        const v_big = decodeBigInt(dv, true)
+        assert.equal @ v, Number(v_big)
+

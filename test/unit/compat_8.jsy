@@ -1,0 +1,26 @@
+import @{} decodeBigInt, decodeBigUint
+from 'bigint-codec/esm/index.mjs'
+
+const { assert } = require('chai')
+
+describe @ 'compat 8 bits', @=> ::
+  describe @ 'u8', @=> ::
+    const samples = [0, 1, 2, 127, 128, 254, 255]
+    for const v of samples ::
+      it @ `v : u8 = ${v}`, @=> ::
+        const dv = new DataView @ new ArrayBuffer(1)
+        dv.setUint8(0, v)
+
+        const v_big = decodeBigUint(dv)
+        assert.equal @ v, Number(v_big)
+
+
+  describe @ 'i8', @=> ::
+    const samples = [-128, -127, -2, -1, 0, 1, 2, 127]
+    for const v of samples ::
+      it @ `v : i8 = ${v}`, @=> ::
+        const dv = new DataView @ new ArrayBuffer(1)
+        dv.setInt8(0, v)
+
+        const v_big = decodeBigInt(dv)
+        assert.equal @ v, Number(v_big)

@@ -1,6 +1,15 @@
 export function _as_u8_data(u8buf) ::
-  return u8buf instanceof Uint8Array ? u8buf
-    : new Uint8Array @ new ArrayBuffer @ u8buf
+  if u8buf instanceof Uint8Array ::
+    return u8buf
+
+  if u8buf instanceof ArrayBuffer ::
+    return new Uint8Array(u8buf)
+
+  const {buffer, byteOffset, byteLength} = u8buf
+  if undefined !== buffer ::
+    return new Uint8Array(buffer, byteOffset, byteLength)
+
+  throw new Error @ 'Unexpected buffer kind'
 
 export function _u8buf_for_bigint(v) ::
   if 0n > v ::

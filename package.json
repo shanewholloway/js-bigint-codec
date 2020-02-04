@@ -1,6 +1,6 @@
 {
   "name": "bigint-codec",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "BigInt codec for NodeJS and the Web",
   "license": "BSD-2-Clause",
   "author": "Shane Holloway <shane.holloway@ieee.org>",
@@ -13,13 +13,15 @@
     "url": "git+ssh://git@github.com/shanewholloway/js-bigint-codec.git"
   },
   "type": "module",
-  "main": "./cjs/index.js",
+  "main": "./cjs/index.cjs",
   "module": "./esm/index.mjs",
+  "browser": "./umd/index.min.js",
   "exports": {
     "import": "./esm/index.mjs",
     "require": "./cjs/index.cjs"
   },
   "files": [
+    "code/",
     "cjs/",
     "esm/",
     "umd/"

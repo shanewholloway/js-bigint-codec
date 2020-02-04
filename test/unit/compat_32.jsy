@@ -1,0 +1,56 @@
+import @{} decodeBigInt, decodeBigUint
+from 'bigint-codec/esm/index.mjs'
+
+const { assert } = require('chai')
+
+describe @ 'compat 32 bits', @=> ::
+  const new_dataview = ()=>
+    new DataView @ new ArrayBuffer(4)
+
+  describe @ 'u32', @=> ::
+    const samples = @[]
+      0, 1, 2, 127, 128, 254, 255
+      256, 257, 32767, 32768, 65534, 65535
+      0x7ffffffe, 0x7fffffff, 
+      0x80000000, 0x80000001,
+      0xfffffffe, 0xffffffff, 
+
+    for const v of samples ::
+      it @ `(BE) v : u32 = ${v}`, @=> ::
+        const dv = new_dataview()
+        dv.setUint32(0, v, false)
+
+        const v_big = decodeBigUint(dv, false)
+        assert.equal @ v, Number(v_big)
+
+      it @ `(LE) v : u32 = ${v}`, @=> ::
+        const dv = new_dataview()
+        dv.setUint32(0, v, true)
+
+        const v_big = decodeBigUint(dv, true)
+        assert.equal @ v, Number(v_big)
+
+
+  describe @ 'i32', @=> ::
+    const samples = @[]
+      -2, -1, 0, 1, 2,
+      -32768, -32767, 32767, 32768,
+      -65536, -65535, 65535, 65536,
+      0x7ffffffe, 0x7fffffff, 
+      -0x80000000, -0x7fffffff, 
+
+    for const v of samples ::
+      it @ `(BE) v : i32 = ${v}`, @=> ::
+        const dv = new_dataview()
+        dv.setInt32(0, v, false)
+
+        const v_big = decodeBigInt(dv, false)
+        assert.equal @ v, Number(v_big)
+
+      it @ `(LE) v : i32 = ${v}`, @=> ::
+        const dv = new_dataview()
+        dv.setInt32(0, v, true)
+
+        const v_big = decodeBigInt(dv, true)
+        assert.equal @ v, Number(v_big)
+

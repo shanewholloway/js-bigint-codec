@@ -1,0 +1,4 @@
+import './compat_8.jsy'
+import './compat_16.jsy'
+import './compat_32.jsy'
+import './compat_64.jsy'

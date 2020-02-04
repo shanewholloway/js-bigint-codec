@@ -1,0 +1,68 @@
+import @{} decodeBigInt, decodeBigUint
+from 'bigint-codec/esm/index.mjs'
+
+const { assert } = require('chai')
+
+describe @ 'compat 32 bits', @=> ::
+  const new_dataview = ()=>
+    new DataView @ new ArrayBuffer(8)
+
+  describe @ 'u64', @=> ::
+    const samples = @[]
+      0, 1, 2, 127, 128, 254, 255
+      0x7ffffffe, 0x7fffffff, 
+      0x80000000, 0x80000001,
+      0xfffffffe, 0xffffffff, 
+      0x7ffffffffffffffen,
+      0x7fffffffffffffffn,
+      0x8000000000000000n,
+      0x8000000000000001n,
+      0xfffffffffffffffen,
+      0xffffffffffffffffn,
+
+    for let v of samples ::
+      v = BigInt(v)
+
+      it @ `(BE) v : u64 = ${v}`, @=> ::
+        const dv = new_dataview()
+        dv.setBigUint64(0, v, false)
+
+        const v_big = decodeBigUint(dv, false)
+        assert.equal @ v, v_big
+
+      it @ `(LE) v : u64 = ${v}`, @=> ::
+        const dv = new_dataview()
+        dv.setBigUint64(0, v, true)
+
+        const v_big = decodeBigUint(dv, true)
+        assert.equal @ v, v_big
+
+
+  describe @ 'i64', @=> ::
+    const samples = @[]
+      -2, -1, 0, 1, 2,
+      0x7ffffffe, 0x7fffffff, 
+      -0x80000000, -0x7fffffff, 
+      0x7ffffffffffffffen,
+      0x7fffffffffffffffn,
+      -0x8000000000000000n,
+      -0x7fffffffffffffffn,
+      -0x7ffffffffffffffen,
+
+    for let v of samples ::
+      v = BigInt(v)
+
+      it @ `(BE) v : i64 = ${v}`, @=> ::
+        const dv = new_dataview()
+        dv.setBigInt64(0, v, false)
+
+        const v_big = decodeBigInt(dv, false)
+        assert.equal @ v, v_big
+
+      it @ `(LE) v : i64 = ${v}`, @=> ::
+        const dv = new_dataview()
+        dv.setBigInt64(0, v, true)
+
+        const v_big = decodeBigInt(dv, true)
+        assert.equal @ v, v_big
+

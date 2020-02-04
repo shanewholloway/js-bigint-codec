@@ -3,7 +3,7 @@ from 'bigint-codec/esm/bigint_encode.mjs'
 
 const { assert } = require('chai')
 
-describe @ 'encode rope', @=> ::
+describe @ 'encode alloc', @=> ::
   it @ 'importable', @=> ::
     assert.equal @ typeof encodeBigInt, 'function'
     assert.equal @ typeof encodeBigUint, 'function'

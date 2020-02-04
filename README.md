@@ -1,10 +1,15 @@
 # BigInt Codec
 
-BigInt serialization codec to `Uint8Arrays` for NodeJS and the Web.
+BigInt serialization codec using `Uint8Arrays` for NodeJS and the Web with no dependencies.
 
-Packaged as both ECMAScript Modules and CommonJS thanks to Rollup.
+Packaged as both ECMAScript Modules and CommonJS thanks to [Rollup](https://rollupjs.org).
 
-WARNING: Not yet tested for compatibility with ASN-1 or other Big-Int encodings.
+Compatability Testing Status:
+ - [x] Bit-compatabile with u8/i8/u16/i16/u32/i32/u64/i64 encodings via DataView for
+      both Little Endian (LE) and network order Big Ending (BE) encodings.
+ - [ ] TODO: Test compatibility with ASN-1 Big-Int encodings.
+ - [ ] TODO: Identify and test compatibility with other Big-Int encodings.
+
 
 ### Example
 
@@ -43,6 +48,53 @@ const n_rt_LE = decodeBigInt(u8_LE, true)
 console.log(n_rt_LE === n_curve25519)
 // true
 ```
+
+### Use
+
+##### CDN
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/bigint-codec@VERSION/umd/index.min.js"></script>
+<!-- or -->
+<script src="https://cdn.jsdelivr.net/npm/bigint-codec/umd/index.min.js"></script>
+<script>window.bigint_codec.encodeBigInt(23n)</script>
+
+<!-- or individually -->
+
+<script src="https://cdn.jsdelivr.net/npm/bigint-codec@VERSION/umd/bigint_decode.min.js"></script>
+<script>window.bigint_decode.decodeBigInt</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bigint-codec@VERSION/umd/bigint_encode.min.js"></script>
+<script>window.bigint_encode.encodeBigInt</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bigint-codec@VERSION/umd/bigint_encode_into.min.js"></script>
+<script>window.bigint_encode_into.encodeIntoBigInt</script>
+```
+
+
+##### NodeJS import
+
+```javascript
+import {decodeBigInt, decodeBigUint} from 'bigint-codec'
+import {encodeBigInt, encodeBigUint} from 'bigint-codec'
+
+// or individually
+import {decodeBigInt, decodeBigUint} from 'bigint-codec/esm/bigint_decode.mjs'
+import {encodeBigInt, encodeBigUint} from 'bigint-codec/esm/bigint_encode.mjs'
+import {encodeIntoBigInt, encodeIntoBigUint} from 'bigint-codec/esm/bigint_encode_into.mjs'
+```
+
+
+##### NodeJS require()
+
+```javascript
+const { decodeBigUint, encodeBigUint } = require('bigint-codec')
+
+// or individually
+const {decodeBigUint} = require('bigint-codec/cjs/bigint_decode.cjs')
+const {encodeBigUint} require('bigint-codec/cjs/bigint_encode.cjs')
+```
+
 
 ### API
 
