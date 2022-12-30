@@ -3,7 +3,7 @@
   "dependencies": {
     "bigint-codec": "file:..",
     "chai": "^4.2.0",
-    "mocha": "^7.1.1",
+    "mocha": "^10.2.0",
     "source-map-support": "^0.5.16",
     "u8-utils": "^0.3.7"
   },
